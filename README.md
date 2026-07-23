@@ -127,8 +127,8 @@ Recommendation Node
         ▼
 Structured JSON Response
 ```
-
-### After the initial LangGraph workflow completes, users can optionally provide natural language corrections. These corrections are processed using the Groq LLM through a dedicated AI refinement endpoint, which updates only the affected complaint fields while preserving all other extracted information.
+-
+After the initial LangGraph workflow completes, users can optionally provide natural language corrections. These corrections are processed using the Groq LLM through a dedicated AI refinement endpoint, which updates only the affected complaint fields while preserving all other extracted information.
 ---
 
 # 🏗️ System Architecture
