@@ -31,6 +31,7 @@ The application follows a modular AI workflow implemented using **LangGraph**.
 - Paste customer complaint text
 - Upload complaint PDF
 - Automatic PDF text extraction
+- AI Conversational Correction – Users can provide follow-up corrections (e.g., "The quantity is 500 g, not 500 kg"), and the AI updates only the affected complaint fields automatically.
 
 ---
 
@@ -61,6 +62,7 @@ Implemented AI capabilities include:
 - ✅ Root Cause Recommendation
 - ✅ CAPA Recommendation
 - ✅ Complaint Summary
+- ✅ AI Conversational Correction (Natural Language Complaint Refinement)
 
 ---
 
@@ -126,8 +128,7 @@ Recommendation Node
 Structured JSON Response
 ```
 
-Each node performs an independent task, making the workflow modular and easy to extend.
-
+After the initial LangGraph workflow completes, users can optionally provide natural language corrections. These corrections are processed using the Groq LLM through a dedicated AI refinement endpoint, which updates only the affected complaint fields while preserving all other extracted information.
 ---
 
 # 🏗️ System Architecture
@@ -166,7 +167,7 @@ Each node performs an independent task, making the workflow modular and easy to 
 |--------------|-------------|-------------------|
 | React (Vite) | FastAPI | LangGraph |
 | Redux Toolkit | SQLAlchemy | Groq API |
-| Axios | Pydantic | llama-3.3-70b-versatile |
+| Axios | Pydantic | Groq(llama-3.3-70b-versatile) |
 | CSS | PyPDF | PostgreSQL |
 | Google Inter Font | Python | |
 
@@ -182,14 +183,15 @@ backend
 │   ├── config.py
 │   ├── database.py
 │   ├── models.py
+│   ├── schemas.py
 │   ├── routes.py
 │   ├── pdf_utils.py
 │   ├── prompts
+│   │   └── complaint_extractor.txt
 │   └── langgraph
 │       ├── state.py
 │       ├── nodes.py
 │       └── workflow.py
-│
 frontend
 │
 ├── src
@@ -198,7 +200,8 @@ frontend
 │   ├── components
 │   ├── pages
 │   ├── services
-│   └── App.jsx
+│   ├── App.jsx
+│   └── main.jsx
 ```
 
 ---
@@ -216,6 +219,9 @@ Upload PDF / Paste Complaint
             │
             ▼
     Structured Complaint Data
+            │
+            ▼
+ AI Conversational Correction (Optional)
             │
             ▼
    User Review & Edit Details
@@ -236,6 +242,7 @@ Upload PDF / Paste Complaint
 | GET | / | Health Check |
 | POST | /upload-pdf | Upload complaint PDF |
 | POST | /analyze | AI Complaint Analysis |
+| POST | /refine | AI Conversational Correction |
 | POST | /complaints | Save Complaint |
 | GET | /complaints | Fetch Complaints |
 | PATCH | /complaints/{id}/status | Update Complaint Status |
