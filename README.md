@@ -162,31 +162,13 @@ Each node performs an independent task, making the workflow modular and easy to 
 
 # ⚙️ Tech Stack
 
-## Frontend
-
-- React (Vite)
-- Redux Toolkit
-- Axios
-- CSS
-- Google Inter Font
-
----
-
-## Backend
-
-- FastAPI
-- SQLAlchemy
-- PostgreSQL
-- Pydantic
-- PyPDF
-
----
-
-## AI
-
-- LangGraph
-- Groq API
-- Llama 3.3 70B Versatile *(Used because the originally suggested model is no longer available on Groq.)*
+| **Frontend** | **Backend** | **AI & Database** |
+|--------------|-------------|-------------------|
+| React (Vite) | FastAPI | LangGraph |
+| Redux Toolkit | SQLAlchemy | Groq API |
+| Axios | Pydantic | llama-3.3-70b-versatile |
+| CSS | PyPDF | PostgreSQL |
+| Google Inter Font | Python | |
 
 ---
 
@@ -295,51 +277,6 @@ npm install
 
 npm run dev
 ```
-
----
-
-# 📸 Screenshots
-
-> Add screenshots here before submission.
-
-Suggested screenshots:
-
-- Dashboard
-- PDF Upload
-- AI Analysis
-- Complaint Details
-- Complaint History
-- Status Update
-
----
-
-# 💡 Design Decisions
-
-During development, the focus was on creating a clean and modular architecture rather than tightly coupling AI logic with backend APIs.
-
-Key decisions include:
-
-- LangGraph for modular AI workflow
-- Redux Toolkit for centralized frontend state management
-- Editable AI output to support human validation
-- PostgreSQL for structured complaint storage
-- FastAPI for lightweight REST APIs
-- Modular backend architecture for future scalability
-
----
-
-# 🔮 Future Enhancements
-
-Potential improvements include:
-
-- OCR for scanned complaint documents
-- Email Integration
-- User Authentication & Role Management
-- Audit Trail
-- Vector Database for semantic duplicate detection
-- Human Approval Workflow
-- Analytics Dashboard
-- Notification System
 
 ---
 
