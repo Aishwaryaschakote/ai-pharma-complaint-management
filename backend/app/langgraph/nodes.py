@@ -121,6 +121,7 @@ def duplicate_node(state):
 
 
 def recommendation_node(state):
+    print("✅ Node 5: Recommendation")
     """
     Final AI recommendation node.
     Ensures recommendation fields exist before returning.
