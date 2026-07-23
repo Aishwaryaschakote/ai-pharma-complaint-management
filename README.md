@@ -1,4 +1,4 @@
-# 🧠 AIVOA – AI Powered Customer Complaint Management System
+# AI Powered Customer Complaint Management System
 
 > AI-powered pharmaceutical complaint management system built using **React, FastAPI, LangGraph, Groq LLM, PostgreSQL, SQLAlchemy, and Redux Toolkit**.
 
