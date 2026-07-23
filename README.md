@@ -280,7 +280,7 @@ npm run dev
 
 ---
 
-# 👨‍💻 Developed By
+# 👩‍💻 Developed By
 
 **Aishwarya Chakote**
 
