@@ -3,7 +3,7 @@ backend/.env
 .env
 .env.*
 
-# Python
+# Python ignored
 backend/venv/
 **/__pycache__/
 *.pyc
