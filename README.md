@@ -247,8 +247,12 @@ Upload PDF / Paste Complaint
 ## Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Aishwaryaschakote/ai-pharma-complaint-management.git
+cd ai-pharma-complaint-management
 ```
+
+GitHub Repository:
+**https://github.com/Aishwaryaschakote/ai-pharma-complaint-management**
 
 ---
 
