@@ -167,9 +167,9 @@ After the initial LangGraph workflow completes, users can optionally provide nat
 |--------------|-------------|-------------------|
 | React (Vite) | FastAPI | LangGraph |
 | Redux Toolkit | SQLAlchemy | Groq API |
-| Axios | Pydantic | Groq(llama-3.3-70b-versatile) |
-| CSS | PyPDF | PostgreSQL |
-| Google Inter Font | Python | |
+| Axios | Pydantic | Promt Engineering |
+| CSS | PyPDF | Groq(llama-3.3-70b-versatile) |
+| Google Inter Font | Python |PostgreSQL |
 
 ---
 
