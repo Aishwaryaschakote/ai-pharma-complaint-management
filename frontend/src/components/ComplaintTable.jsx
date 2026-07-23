@@ -26,7 +26,7 @@ export default function ComplaintTable({
   return (
     <div className="table-card">
 
-      <h2>Recent Complaints</h2>
+      <h2> 📋Recent Complaints</h2>
 
       <table>
 

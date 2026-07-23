@@ -21,7 +21,7 @@ export default function ComplaintDetails({
 
     <div className="card">
 
-      <h2>Complaint Details</h2>
+      <h2>🤖 AI Complaint Analysis</h2>
 
       <div className="grid">
 

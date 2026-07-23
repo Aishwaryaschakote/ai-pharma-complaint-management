@@ -40,11 +40,12 @@ body {
 
 .dashboard-card {
   flex: 1;
-  background: white;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
   text-align: center;
+  background: linear-gradient(135deg,#eff6ff,#ffffff);
+  border: 1px solid #dbeafe;
 }
 
 .dashboard-card h3 {
@@ -80,9 +81,11 @@ body {
 
 .card {
   background: white;
-  padding: 24px;
+  padding: 22px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+  border: 1px solid #eef2f7;
+  flex: 1;
 }
 
 .card h2 {
@@ -116,19 +119,42 @@ body {
 
 textarea {
   width: 100%;
-  min-height: 260px;
+  height: 230px;
   padding: 15px;
   margin-top: 15px;
+  border-radius: 10px;
   border: 1px solid #d1d5db;
-  border-radius: 8px;
-  resize: vertical;
+  resize: none;
+  overflow-y: auto;
   font-size: 15px;
+  line-height: 1.6;
+  background: #fafafa;
+  transition: 0.2s;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 20px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #f1f5f9;
 }
 
 /* ================= BUTTON ================= */
 
 button {
-  margin-top: 20px;
+  margin-top: 18px;
   background: #2563eb;
   color: white;
   border: none;
@@ -136,11 +162,13 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-size: 15px;
-  transition: 0.25s;
+  font-weight: 600;
+  transition: .25s;
 }
 
 button:hover {
   background: #1d4ed8;
+  transform: translateY(-2px);
 }
 
 .save-btn {
@@ -196,8 +224,8 @@ table {
 }
 
 th {
-  background: #eff6ff;
-  color: #1e3a8a;
+  background: #1e3a8a;
+  color: white;
 }
 
 th,
@@ -264,9 +292,31 @@ input{
     font-size:14px;
 }
 select{
-    padding:8px;
-    border-radius:6px;
+    padding:8px 10px;
+    border-radius:8px;
     border:1px solid #d1d5db;
+    background:#fff;
     cursor:pointer;
-    width:150px;
+    font-weight:500;
+}
+.empty-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-height:420px;
+}
+
+.empty-state{
+    text-align:center;
+    margin-top:40px;
+}
+
+.empty-state h1{
+    font-size:60px;
+}
+
+.empty-state p{
+    margin-top:15px;
+    color:#64748b;
+    line-height:1.8;
 }

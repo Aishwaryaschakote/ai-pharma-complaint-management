@@ -43,7 +43,7 @@ export default function ComplaintForm({
 
     <div className="card">
 
-      <h2>Customer Complaint</h2>
+      <h2>📝 Customer Complaint</h2>
 
       <div className="upload-box">
 
@@ -74,7 +74,7 @@ export default function ComplaintForm({
 
       <button onClick={analyzeComplaint}>
 
-        Analyze Complaint
+        ✨ Analyze Complaint
 
       </button>
 
