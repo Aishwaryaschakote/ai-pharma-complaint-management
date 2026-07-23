@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Dict, Any
 
 
 class ComplaintRequest(BaseModel):
@@ -15,3 +16,11 @@ class ComplaintCreate(BaseModel):
     summary: str
     root_cause: str
     capa: str
+
+
+# -----------------------------
+# NEW SCHEMA
+# -----------------------------
+class ComplaintRefine(BaseModel):
+    current_data: Dict[str, Any]
+    instruction: str

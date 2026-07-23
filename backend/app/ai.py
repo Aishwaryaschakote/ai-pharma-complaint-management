@@ -5,9 +5,27 @@ import json
 client = Groq(api_key=GROQ_API_KEY)
 
 
+def clean_json(result: str):
+
+    result = result.strip()
+
+    if "<think>" in result:
+        result = result.split("</think>")[-1].strip()
+
+    if result.startswith("```json"):
+        result = result.replace("```json", "", 1).strip()
+
+    if result.startswith("```"):
+        result = result.replace("```", "", 1).strip()
+
+    if result.endswith("```"):
+        result = result[:-3].strip()
+
+    return result
+
+
 def analyze_complaint(text: str):
 
-    # Load Prompt
     with open(
         "app/prompts/complaint_extractor.txt",
         "r",
@@ -15,9 +33,9 @@ def analyze_complaint(text: str):
     ) as f:
         prompt = f.read()
 
-    # Call Groq
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
+        temperature=0,
         messages=[
             {
                 "role": "system",
@@ -28,36 +46,67 @@ def analyze_complaint(text: str):
                 "content": text,
             },
         ],
-        temperature=0,
     )
 
-    result = response.choices[0].message.content.strip()
+    result = clean_json(
+        response.choices[0].message.content
+    )
 
-    # Remove reasoning tags
-    if "<think>" in result:
-        result = result.split("</think>")[-1].strip()
-
-    # Remove markdown code fences
-    if result.startswith("```json"):
-        result = result.replace("```json", "", 1).strip()
-
-    if result.startswith("```"):
-        result = result.replace("```", "", 1).strip()
-
-    if result.endswith("```"):
-        result = result[:-3].strip()
-
-    # Parse JSON
     try:
         return json.loads(result)
 
-    except json.JSONDecodeError as e:
-        print("\n========== JSON ERROR ==========")
-        print(e)
-        print("Returned by LLM:")
-        print(result)
-        print("================================\n")
+    except Exception:
 
         return {
             "raw_response": result
         }
+
+
+# -----------------------------
+# NEW FUNCTION
+# -----------------------------
+def refine_complaint(current_json, user_instruction):
+
+    prompt = f"""
+You are a pharmaceutical complaint assistant.
+
+Below is the current complaint information.
+
+Current JSON:
+
+{json.dumps(current_json, indent=2)}
+
+The user has provided a correction.
+
+User Correction:
+{user_instruction}
+
+Instructions:
+
+- Update ONLY the affected fields.
+- Keep all other fields unchanged.
+- Return ONLY valid JSON.
+- Do not explain anything.
+"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": prompt,
+            }
+        ],
+    )
+
+    result = clean_json(
+        response.choices[0].message.content
+    )
+
+    try:
+        return json.loads(result)
+
+    except Exception:
+
+        return current_json

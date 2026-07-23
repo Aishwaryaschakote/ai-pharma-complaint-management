@@ -1,10 +1,15 @@
 from fastapi import APIRouter, Depends, UploadFile, File
 from sqlalchemy.orm import Session  # type: ignore
 
-from app.schemas import ComplaintRequest, ComplaintCreate
+from app.schemas import (
+    ComplaintRequest,
+    ComplaintCreate,
+    ComplaintRefine,
+)
 from app.database import get_db
 from app.models import Complaint
 from app.langgraph.workflow import graph
+from app.ai import refine_complaint
 from app.pdf_utils import extract_text_from_pdf
 
 router = APIRouter()
@@ -23,6 +28,17 @@ def analyze(request: ComplaintRequest):
         "result": result["extracted_data"]
     }
 
+@router.post("/refine")
+def refine(data: ComplaintRefine):
+
+    updated = refine_complaint(
+        data.current_data,
+        data.instruction
+    )
+
+    return {
+        "result": updated
+    }
 
 @router.post("/upload-pdf")
 async def upload_pdf(file: UploadFile = File(...)):

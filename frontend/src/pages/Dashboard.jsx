@@ -11,6 +11,7 @@ import {
   analyzeComplaint,
   saveComplaint,
   getComplaints,
+  refineComplaint,
 } from "../services/api";
 
 import {
@@ -41,6 +42,7 @@ export default function Dashboard() {
   }, []);
 
   async function loadComplaints() {
+
     try {
 
       const res = await getComplaints();
@@ -48,15 +50,21 @@ export default function Dashboard() {
       dispatch(setComplaints(res.data));
 
     } catch (err) {
+
       console.log(err);
+
     }
+
   }
 
   async function handleAnalyze() {
 
     if (!complaint.trim()) {
+
       alert("Please enter a complaint.");
+
       return;
+
     }
 
     try {
@@ -72,6 +80,33 @@ export default function Dashboard() {
       console.log(err);
 
       alert("Analysis failed.");
+
+    }
+
+  }
+
+  // ⭐ NEW
+  async function handleRefine(instruction) {
+
+    try {
+
+      const res = await refineComplaint({
+
+        current_data: result,
+
+        instruction,
+
+      });
+
+      dispatch(
+        setResult(res.data.result)
+      );
+
+    } catch (err) {
+
+      console.log(err);
+
+      alert("AI update failed.");
 
     }
 
@@ -111,7 +146,9 @@ export default function Dashboard() {
   }
 
   return (
+
     <>
+
       <Navbar />
 
       <div className="dashboard">
@@ -145,8 +182,14 @@ export default function Dashboard() {
                   <h1>🤖</h1>
 
                   <p>
+
                     Upload a complaint PDF or paste a customer complaint,
-                    then click <strong>Analyze Complaint</strong>.
+                    then click
+
+                    <strong> Analyze Complaint </strong>
+
+                    to start AI analysis.
+
                   </p>
 
                 </div>
@@ -156,11 +199,17 @@ export default function Dashboard() {
             ) : (
 
               <ComplaintDetails
+
                 result={result}
+
                 setResult={(value) =>
                   dispatch(setResult(value))
                 }
+
+                refineComplaint={handleRefine}
+
                 saveComplaint={handleSave}
+
               />
 
             )}
@@ -170,12 +219,17 @@ export default function Dashboard() {
         </div>
 
         <ComplaintTable
+
           complaints={complaints}
+
           refreshComplaints={loadComplaints}
+
         />
 
       </div>
 
     </>
+
   );
+
 }

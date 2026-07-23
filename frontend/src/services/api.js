@@ -23,4 +23,8 @@ export const uploadPDF = (formData) =>
 export const updateStatus = (id, status) =>
   api.patch(`/complaints/${id}/status?status=${status}`);
 
+// ⭐ NEW
+export const refineComplaint = (data) =>
+  api.post("/refine", data);
+
 export default api;
